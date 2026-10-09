@@ -1,6 +1,6 @@
 # Marketplace submission
 
-Repository: https://github.com/kaaldev73/Omarchy_RustDeskFullscreenPassthrough
+Repository: https://github.com/kaaldev73/Omarchy_RustDeskPassthrough
 
 Plugin ID: `io.github.kaaldev73.rustdesk-passthrough`
 

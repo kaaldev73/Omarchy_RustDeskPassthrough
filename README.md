@@ -27,7 +27,7 @@ An Omarchy background service for Hyprland's Lua configuration API. No bar widge
 Run on the **local Omarchy computer with your physical keyboard**, not on the remote computer:
 
 ```bash
-omarchy plugin add https://github.com/kaaldev73/Omarchy_RustDeskFullscreenPassthrough --enable
+omarchy plugin add https://github.com/kaaldev73/Omarchy_RustDeskPassthrough --enable
 ```
 
 Review and accept Omarchy's installation prompt. This follows the repository's current default branch, not an immutable release snapshot.

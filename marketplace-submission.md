@@ -1,6 +1,6 @@
 ### Repository URL
 
-https://github.com/kaaldev73/Omarchy_RustDeskFullscreenPassthrough
+https://github.com/kaaldev73/Omarchy_RustDeskPassthrough
 
 ### Category
 
