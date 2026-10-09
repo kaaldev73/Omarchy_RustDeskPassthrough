@@ -32,3 +32,18 @@ The live test used Hyprland dispatchers and inspected compositor state. Physical
 ## Safe test usage
 
 `runtime_test.lua` uses a mocked Hyprland API and does not control your desktop. `live_test.py --live` intentionally changes focus/fullscreen and reloads configuration. Run it from a local terminal with an existing remote connection, and avoid other input while it runs. No remote commands are sent.
+
+## Re-verification — 2026-10-10
+
+Omarchy 4.0.4-1, Hyprland 0.56.2, live native RustDesk remote session.
+
+| Check | Result |
+| --- | --- |
+| Lua behavior tests, `luac -p`, `omarchy plugin validate`, `qmllint` | Pass |
+| Install from the public repository with `omarchy plugin add … --enable` | Pass |
+| `tests/live_test.py --live` (all 8 focus/fullscreen/reload checks) | Pass, no configuration errors |
+| Full shell restart (`omarchy restart shell`) with the plugin enabled | Pass; runtime reloaded |
+| Disable, re-enable, and remove | Pass; runtime unloaded on disable/remove |
+| Physical-key forwarding in daily use | Confirmed by the author |
+
+A full logout/login was not performed in this run.
