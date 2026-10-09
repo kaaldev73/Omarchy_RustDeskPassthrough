@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.kaaldev73.rustdesk-passthrough",
+  "name": "RustDesk Fullscreen Passthrough",
+  "version": "0.1.0",
+  "author": "Kaaldev",
+  "license": "MIT",
+  "description": "Pass local shortcuts to fullscreen RustDesk sessions; press Super+F to return to your local desktop.",
+  "kinds": ["service"],
+  "keepLoaded": true,
+  "entryPoints": {"service": "Service.qml"}
+}
