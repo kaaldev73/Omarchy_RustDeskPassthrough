@@ -32,7 +32,10 @@ return function(token)
     state.stopped = true
     if state.pending then state.pending:set_enabled(false) end
     for _, subscription in ipairs(state.subscriptions) do subscription:remove() end
-    if state.binding then state.binding:remove() end
+    -- The exit binding is left in place. In Hyprland 0.56.2, removing a
+    -- submap binding by its handle also removes the global binding on the
+    -- same keys, which would take away the normal Super+F. The binding only
+    -- exists inside the submap, and that is never entered once stopped.
     if hl.get_current_submap() == SUBMAP then
       hl.dispatch(hl.dsp.submap("reset"))
     end
@@ -47,11 +50,16 @@ return function(token)
   end
 
   local ok, err = pcall(function()
-    hl.define_submap(SUBMAP, function()
-      state.binding = hl.bind("SUPER + F",
-        hl.dsp.window.fullscreen({mode = "fullscreen"}),
-        {description = "Exit RustDesk fullscreen and restore local shortcuts"})
-    end)
+    -- Defined once per Hyprland config load, since it is no longer removed
+    -- on stop. A reload discards this flag together with every binding.
+    if not _G[KEY .. "_bound"] then
+      hl.define_submap(SUBMAP, function()
+        hl.bind("SUPER + F",
+          hl.dsp.window.fullscreen({mode = "fullscreen"}),
+          {description = "Exit RustDesk fullscreen and restore local shortcuts"})
+      end)
+      _G[KEY .. "_bound"] = true
+    end
     for _, event in ipairs({"window.active", "window.fullscreen", "window.close",
       "window.title", "window.class", "workspace.active"}) do
       table.insert(state.subscriptions, hl.on(event, schedule))

@@ -67,11 +67,13 @@ current = "resize"; window = remote(2); emit("window.active"); expect("unrelated
 current = ""; emit("window.active")
 local old = _G.omarchy_rustdesk_passthrough
 install("second"); flush()
-assert(old.stopped and bindings[1].removed and not bindings[2].removed)
+-- The exit binding is defined once and never removed: removing it by handle
+-- would also remove the global binding on the same keys.
+assert(old.stopped and #bindings == 1 and not bindings[1].removed)
 old.stop(); expect("old cleanup cannot stop replacement", "rustdesk-fullscreen")
 _G.omarchy_rustdesk_passthrough.stop(); flush()
 expect("disable resets shortcuts", "")
-assert(_G.omarchy_rustdesk_passthrough == nil and bindings[2].removed)
+assert(_G.omarchy_rustdesk_passthrough == nil and #bindings == 1 and not bindings[1].removed)
 window = remote(2); emit("window.fullscreen"); expect("disabled callbacks inactive", "")
 install("third"); flush(); expect("enable again", "rustdesk-fullscreen")
 _G.omarchy_rustdesk_passthrough.stop()
